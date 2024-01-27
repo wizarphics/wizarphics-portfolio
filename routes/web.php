@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\ContactController;
 use App\Models\CaseStudy;
 use Illuminate\Support\Facades\Request;
 use Illuminate\Support\Facades\Route;
@@ -37,6 +38,7 @@ Route::prefix(Request::getLocale())->group(function () {
     Route::get('/contact', function () {
         return view('contact');
     })->name('contact');
+    Route::post('/contact/save', ContactController::class)->name('contact.store');
 });
 
 // Route::get('/', function () {})->domain('blog');
