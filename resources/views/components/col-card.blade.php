@@ -1,6 +1,6 @@
 <div class="col-md card border-light-subtle shadow rounded-4">
     <div class="card-img-top mt-n4 bg-black rounded-4 overflow-hidden" style="height: 300px;">
-        <img src="/outsyd.png" data-hover-src="/outsyd-alt.png" class="object-fit-contain mt-5 h-100 w-100" alt="...">
+        <img src="/storage/{{ $image->content }}" data-hover-src="{{ $image->alt }}" class="object-fit-contain mt-5 h-100 w-100" alt="{{ $image->desc }}">
     </div>
     <div class="card-body">
         <h5 class="card-title">{{ $title }}</h5>

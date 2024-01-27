@@ -2,6 +2,7 @@
 
 namespace App\View\Components;
 
+use App\Models\Image;
 use Closure;
 use Illuminate\Contracts\View\View;
 use Illuminate\View\Component;
@@ -11,7 +12,7 @@ class ColCard extends Component
     /**
      * Create a new component instance.
      */
-    public function __construct(public string $title='',public string $subtext='', public string $link='', public ?string $cta = null)
+    public function __construct(public string $title='',public string $subtext='', public string $link='', public ?string $cta = null, public ?Image $image = null)
     {
         //
     }
