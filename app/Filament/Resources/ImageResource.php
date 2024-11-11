@@ -12,7 +12,9 @@ use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
+use Livewire\Livewire;
 
 class ImageResource extends Resource
 {
@@ -31,15 +33,16 @@ class ImageResource extends Resource
                     ->live()
                     ->required(),
                 Forms\Components\TextArea::make('content')
-                    ->visible(fn (Get $get): bool => (bool)$get('is_html'))
-                    ->required(fn (Get $get): bool => (bool)$get('is_html'))
+                    ->visible(fn (Get $get, string $operation, ?Model $record): bool => ($operation === 'create' && (bool)$get('is_html')))
+                    ->required(fn (Get $get, string $operation, ?Model $record): bool => ($operation === 'create' && (bool)$get('is_html')) || ($operation === 'edit' && (bool)$record->is_html))
                     ->label('Image')
                     ->maxLength(255)
                     ->columnSpanFull(),
                 Forms\Components\FileUpload::make('content')
                     ->label('Upload Image')
-                    ->visible(fn (Get $get): bool => !(bool)$get('is_html'))
-                    ->required(fn (Get $get): bool => !(bool)$get('is_html'))
+                    ->multiple(false)
+                    ->hidden(fn (Get $get, string $operation): bool => ($operation === 'create' && (bool)$get('is_html')))
+                    ->required(fn (Get $get, string $operation, ?Model $record): bool => ($operation === 'create' && !(bool)$get('is_html')) || ($operation === 'edit' && !(bool)$record->is_html))
                     ->maxFiles(1)
                     ->columnSpanFull(),
                 Forms\Components\Textarea::make('desc')
